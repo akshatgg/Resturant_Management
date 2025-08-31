@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## CLone the Repository
 ```
-https://github.com/sibashish99/Restaurent_Application.git
+https://github.com/akshatgg/Resturant_Management.git
 
 ```
 

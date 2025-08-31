@@ -67,12 +67,12 @@
     </div>
   </div>
 
-  <div class="card shadow-sm border-0">
+  <div class="card shadow border-0">
     <div class="card-body p-0">
-      <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0">
-          <thead>
-            <tr class="bg-light text-dark">
+      <div class="table-responsive" style="max-height: 60vh; overflow-y: auto;">
+        <table class="table table-hover align-middle mb-0 table-striped">
+          <thead class="sticky-top bg-light">
+            <tr class="text-dark">
               <th class="ps-4 sortable-header" scope="col" (click)="sortBy('id')">
                 # <i *ngIf="sortColumn === 'id'" class="bi" [ngClass]="{'bi-sort-numeric-down': !sortReverse, 'bi-sort-numeric-up': sortReverse}"></i>
               </th>
@@ -99,10 +99,44 @@
               <td>
                 <a href="mailto:{{data.email}}" class="text-decoration-none text-dark">{{data.email}}</a>
               </td>
-              <td class="text-truncate" style="max-width: 200px;">{{data.address}}</td>
-              <td>{{data.mobile}}</td>
+              <td style="max-width: 200px;">
+                <div class="address-container position-relative">
+                  <span class="text-truncate d-inline-block" style="max-width: 180px;" [class.expanded]="data.showFullAddress">{{data.address}}</span>
+                  <button *ngIf="data.address && data.address.length > 25" class="btn btn-link btn-sm p-0 text-info position-absolute end-0" 
+                          (click)="toggleAddressDisplay(data)" 
+                          [title]="data.showFullAddress ? 'Show less' : 'Show full address'">
+                    <i class="bi" [ngClass]="data.showFullAddress ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+                  </button>
+                </div>
+                <div *ngIf="data.showFullAddress" class="mt-1 small text-muted address-popup p-2">
+                  <a target="_blank" [href]="'https://maps.google.com/?q=' + data.address" class="text-decoration-none">
+                    <i class="bi bi-geo-alt me-1"></i>{{data.address}}
+                  </a>
+                </div>
+              </td>
               <td>
-                <span class="badge bg-light text-dark me-1" *ngFor="let service of data.services?.split(',')">{{service.trim()}}</span>
+                <a href="tel:{{data.mobile}}" class="text-decoration-none text-dark d-flex align-items-center">
+                  <i class="bi bi-telephone me-2 text-success"></i>{{data.mobile}}
+                </a>
+              </td>
+              <td>
+                <div class="d-flex flex-wrap gap-1">
+                  <span class="badge rounded-pill" 
+                        [ngClass]="{'bg-primary': i % 4 === 0, 'bg-success': i % 4 === 1, 'bg-info': i % 4 === 2, 'bg-warning text-dark': i % 4 === 3}" 
+                        *ngFor="let service of data.services?.split(','); let i = index">
+                    <i class="bi" [ngClass]="{
+                      'bi-cup-hot': service.trim().toLowerCase().includes('food'),
+                      'bi-truck': service.trim().toLowerCase().includes('delivery'),
+                      'bi-people': service.trim().toLowerCase().includes('dining'),
+                      'bi-house': service.trim().toLowerCase().includes('takeaway') || service.trim().toLowerCase().includes('take-away'),
+                      'bi-shop': service.trim().toLowerCase().includes('catering'),
+                      'bi-cup': service.trim().toLowerCase().includes('drinks') || service.trim().toLowerCase().includes('beverage'),
+                      'bi-gift': service.trim().toLowerCase().includes('gift') || service.trim().toLowerCase().includes('card'),
+                      'bi-tag': service.trim().toLowerCase().includes('discount'),
+                      'bi-star': true
+                    }"></i> {{service.trim()}}
+                  </span>
+                </div>
               </td>
               <td>
                 <div class="d-flex justify-content-center">
@@ -142,6 +176,11 @@
   </div>
 </div>
 
+<!-- Back to top button -->
+<button id="backToTop" class="btn btn-primary rounded-circle position-fixed bottom-0 end-0 m-4 shadow" 
+        (click)="scrollToTop()" title="Back to top">
+  <i class="bi bi-arrow-up"></i>
+</button>
 
   
   <!-- Modal -->

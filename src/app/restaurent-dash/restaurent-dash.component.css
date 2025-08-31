@@ -23,6 +23,7 @@ body {
     user-select: none;
     position: relative;
     transition: background-color 0.2s;
+    font-weight: 600;
 }
 
 .sortable-header:hover {
@@ -32,6 +33,57 @@ body {
 .sortable-header i {
     font-size: 0.8rem;
     margin-left: 5px;
+}
+
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Smooth scrolling for the entire page */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Table row hover effect */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.04);
+    transition: background-color 0.2s;
+}
+
+/* Address popup styling */
+.address-container {
+    position: relative;
+    min-height: 24px;
+}
+
+.address-popup {
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-left: 3px solid #0d6efd;
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Back to top button */
+#backToTop {
+    width: 45px;
+    height: 45px;
+    z-index: 1000;
+    transition: all 0.3s;
+    opacity: 0.7;
+}
+
+#backToTop:hover {
+    transform: translateY(-5px);
+    opacity: 1;
 }
 
 /* Hero section styling */

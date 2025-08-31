@@ -175,6 +175,19 @@ export class RestaurentDashComponent implements OnInit {
       return 0;
     });
   }
+  
+  // Toggle address display expansion
+  toggleAddressDisplay(restaurant: any) {
+    restaurant.showFullAddress = !restaurant.showFullAddress;
+  }
+  
+  // Scroll to top function
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
 
   
 }

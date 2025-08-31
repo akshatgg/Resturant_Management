@@ -1,0 +1,60 @@
+
+<div class="login-container">
+  <div class="container">
+    <div class="row justify-content-center align-items-center min-vh-100">
+      <div class="col-md-6 col-lg-5">
+        <div class="card border-0 shadow-lg">
+          <div class="card-header text-center bg-gradient-primary text-white py-4">
+            <h2 class="mb-0"><i class="bi bi-shield-lock me-2"></i>Login</h2>
+          </div>
+          <div class="card-body p-4">
+            <div class="text-center mb-4">
+              <p class="text-muted">Welcome back! Please login to your account</p>
+            </div>
+            <form [formGroup]="loginForm" (ngSubmit)="logIn()"> 
+              <div class="mb-3">
+                <label class="form-label text-secondary">Email Address</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope"></i></span>
+                  <input formControlName="email" type="email" class="form-control border-start-0 ps-0" id="exampleInputEmail1" placeholder="Enter your email">
+                </div>
+                <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="form-text text-danger">
+                  <small><i class="bi bi-exclamation-circle me-1"></i>Please enter a valid email address</small>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="d-flex justify-content-between align-items-center">
+                  <label class="form-label text-secondary">Password</label>
+                  <a href="#" class="text-primary small">Forgot password?</a>
+                </div>
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0"><i class="bi bi-key"></i></span>
+                  <input formControlName="password" type="password" class="form-control border-start-0 ps-0" id="exampleInputPassword1" placeholder="Enter your password">
+                </div>
+                <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="form-text text-danger">
+                  <small><i class="bi bi-exclamation-circle me-1"></i>Password is required</small>
+                </div>
+              </div>
+              <div class="mb-3">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="rememberMe">
+                  <label class="form-check-label small" for="rememberMe">Remember me</label>
+                </div>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+                  <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer text-center py-3 bg-light">
+            <p class="mb-0">Don't have an account? 
+              <a routerLink="/signup" class="text-primary fw-bold">Sign up</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

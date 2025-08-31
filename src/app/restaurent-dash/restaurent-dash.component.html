@@ -1,0 +1,220 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow sticky-top">
+   <div class="container">
+     <a class="navbar-brand d-flex align-items-center" href="#">
+       <i class="bi bi-cup-hot-fill me-2"></i>
+       <span>Restaurant Manager</span>
+     </a>
+     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+       <span class="navbar-toggler-icon"></span>
+     </button>
+     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+       <div class="d-flex align-items-center">
+         <div class="me-3 d-none d-md-flex align-items-center">
+           <span class="badge bg-success me-2"><i class="bi bi-person-check me-1"></i>Logged In</span>
+           <span class="text-light">Welcome, Admin</span>
+         </div>
+         <button (click)="clickAddResto()" class="btn btn-outline-light me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+           <i class="bi bi-plus-circle me-1"></i>Add Restaurant
+         </button>
+         <button routerLink="/login" class="btn btn-danger" type="button">
+           <i class="bi bi-box-arrow-right me-1"></i>Log Out
+         </button>
+       </div>
+     </div>
+   </div>
+</nav>
+
+<div class="hero-section text-center py-5 bg-gradient">
+  <div class="container py-4">
+    <h1 class="display-4 fw-bold text-white mb-3" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">Restaurant Records Management</h1>
+    <p class="lead text-white mx-auto mb-4" style="max-width: 700px; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">
+      A modern solution for efficiently managing your restaurant database with easy tracking and updates.
+    </p>
+    <div class="d-flex justify-content-center">
+      <button (click)="clickAddResto()" class="btn btn-light btn-lg shadow-sm" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <i class="bi bi-plus-circle me-2"></i>Add New Restaurant
+      </button>
+    </div>
+  </div>
+</div>
+<div class="container mt-4">
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <h3 class="fw-bold text-dark"><i class="bi bi-list-ul me-2"></i>Restaurant Listings</h3>
+    </div>
+    <div class="col-md-6">
+      <div class="input-group">
+        <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+        <input type="text" 
+               class="form-control border-start-0 ps-0" 
+               [(ngModel)]="searchText"
+               (ngModelChange)="search()" 
+               placeholder="Search by name, email, services...">
+        <button *ngIf="searchText" 
+                class="btn btn-outline-secondary" 
+                type="button"
+                (click)="clearSearch()">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>
+      <small *ngIf="searchText && filteredRestaurentData?.length > 0" class="text-dark fw-medium">
+        Found {{filteredRestaurentData.length}} results
+      </small>
+      <small *ngIf="searchText && filteredRestaurentData?.length === 0" class="text-danger fw-medium">
+        No matching restaurants found
+      </small>
+    </div>
+  </div>
+
+  <div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead>
+            <tr class="bg-light text-dark">
+              <th class="ps-4 sortable-header" scope="col" (click)="sortBy('id')">
+                # <i *ngIf="sortColumn === 'id'" class="bi" [ngClass]="{'bi-sort-numeric-down': !sortReverse, 'bi-sort-numeric-up': sortReverse}"></i>
+              </th>
+              <th class="sortable-header" scope="col" (click)="sortBy('name')">
+                Restaurant Name <i *ngIf="sortColumn === 'name'" class="bi" [ngClass]="{'bi-sort-alpha-down': !sortReverse, 'bi-sort-alpha-up': sortReverse}"></i>
+              </th>
+              <th class="sortable-header" scope="col" (click)="sortBy('email')">
+                Email <i *ngIf="sortColumn === 'email'" class="bi" [ngClass]="{'bi-sort-alpha-down': !sortReverse, 'bi-sort-alpha-up': sortReverse}"></i>
+              </th>
+              <th class="sortable-header" scope="col" (click)="sortBy('address')">
+                Address <i *ngIf="sortColumn === 'address'" class="bi" [ngClass]="{'bi-sort-alpha-down': !sortReverse, 'bi-sort-alpha-up': sortReverse}"></i>
+              </th>
+              <th class="sortable-header" scope="col" (click)="sortBy('mobile')">
+                Mobile <i *ngIf="sortColumn === 'mobile'" class="bi" [ngClass]="{'bi-sort-alpha-down': !sortReverse, 'bi-sort-alpha-up': sortReverse}"></i>
+              </th>
+              <th scope="col">Services</th>
+              <th scope="col" class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of filteredRestaurentData" class="border-bottom">
+              <td class="ps-4 fw-medium">{{data.id}}</td>
+              <td class="fw-medium text-dark">{{data.name}}</td>
+              <td>
+                <a href="mailto:{{data.email}}" class="text-decoration-none text-dark">{{data.email}}</a>
+              </td>
+              <td class="text-truncate" style="max-width: 200px;">{{data.address}}</td>
+              <td>{{data.mobile}}</td>
+              <td>
+                <span class="badge bg-light text-dark me-1" *ngFor="let service of data.services?.split(',')">{{service.trim()}}</span>
+              </td>
+              <td>
+                <div class="d-flex justify-content-center">
+                  <button (click)="onEditResto(data)" class="btn btn-sm btn-outline-primary me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="bi bi-pencil-square"></i> Edit
+                  </button>
+                  <button (click)="deleteResto(data.id)" class="btn btn-sm btn-outline-danger">
+                    <i class="bi bi-trash"></i> Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="!filteredRestaurentData || filteredRestaurentData.length === 0">
+              <td colspan="7" class="text-center py-4">
+                <div class="alert alert-info mb-0">
+                  <i class="bi bi-info-circle me-2"></i>
+                  <span *ngIf="searchText">No restaurants found matching "{{searchText}}"</span>
+                  <span *ngIf="!searchText">No restaurants available</span>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="!filteredRestaurentData || filteredRestaurentData.length === 0">
+              <td colspan="7" class="text-center py-4">
+                <div class="text-muted">
+                  <i class="bi bi-database-x fs-2 d-block mb-2"></i>
+                  <p>No restaurant records found</p>
+                  <button (click)="clickAddResto()" class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Add Your First Restaurant
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header bg-gradient-primary text-white">
+          <h5 class="modal-title" id="exampleModalLabel">
+            <i class="bi" [ngClass]="showAdd ? 'bi-plus-circle' : 'bi-pencil-square'"></i>
+            {{ showAdd ? 'Add New Restaurant' : 'Update Restaurant' }}
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form [formGroup]="formValue">
+            <div class="mb-3">
+              <label class="form-label text-secondary">Restaurant Name</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light border-end-0"><i class="bi bi-shop"></i></span>
+                <input type="text" class="form-control border-start-0 ps-0" formControlName="name" placeholder="Enter restaurant name">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label text-secondary">Email Address</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light border-end-0"><i class="bi bi-envelope"></i></span>
+                <input type="email" class="form-control border-start-0 ps-0" formControlName="email" placeholder="restaurant@example.com">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label text-secondary">Address</label>
+              <div class="input-group">
+                <span class="input-group-text bg-light border-end-0"><i class="bi bi-geo-alt"></i></span>
+                <input type="text" class="form-control border-start-0 ps-0" formControlName="address" placeholder="123 Main St, City, PIN: 123456">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label text-secondary">Mobile Number</label>
+                  <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-telephone"></i></span>
+                    <input type="text" class="form-control border-start-0 ps-0" formControlName="mobile" placeholder="+91 9876543210">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label text-secondary">Services Offered</label>
+                  <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-tags"></i></span>
+                    <input type="text" class="form-control border-start-0 ps-0" formControlName="services" placeholder="Dine-in, Takeaway, Delivery">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="alert alert-info mt-3 small" role="alert">
+            <i class="bi bi-info-circle me-2"></i>
+            Services should be comma separated (e.g., "Breakfast, Lunch, Dinner")
+          </div>
+        </div>
+        <div class="modal-footer bg-light">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" id="close">
+            <i class="bi bi-x-lg me-1"></i>Cancel
+          </button>
+          <button *ngIf="showAdd" type="button" class="btn btn-primary" (click)="addRestaurent()">
+            <i class="bi bi-plus-lg me-1"></i>Add Restaurant
+          </button>
+          <button *ngIf="showBtn" type="button" class="btn btn-success" (click)="updateResto()">
+            <i class="bi bi-check-lg me-1"></i>Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

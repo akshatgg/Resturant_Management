@@ -1,0 +1,129 @@
+/* You can add global styles to this file, and also import other style files */
+
+:root {
+  --primary-color: #3f51b5;
+  --secondary-color: #4fc3f7;
+  --accent-color: #ff4081;
+  --background-color: #f8f9fa;
+  --text-color: #333;
+  --text-muted: #6c757d;
+  --border-radius: 8px;
+  --box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+  --box-shadow-lg: 0 0.5rem 1rem rgba(0,0,0,0.1);
+  --transition: all 0.2s ease-in-out;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f5f7fa;
+  color: var(--text-color);
+  min-height: 100vh;
+}
+
+.bg-gradient {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #2979ff, #1565c0);
+}
+
+.opacity-90 {
+  opacity: 0.9;
+}
+
+/* Card styling */
+.card {
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--box-shadow-lg);
+}
+
+/* Button styling */
+.btn {
+  border-radius: 5px;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: #3949ab;
+  border-color: #3949ab;
+}
+
+/* Form controls */
+.form-control, .input-group-text {
+  border-radius: var(--border-radius);
+  padding: 0.6rem 1rem;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(63, 81, 181, 0.25);
+}
+
+/* Table styling */
+.table {
+  color: var(--text-color);
+}
+
+.table th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+/* Navbar */
+.navbar-brand {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Hero section */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Badges */
+.badge {
+  font-weight: 500;
+  padding: 0.35em 0.65em;
+  border-radius: 4px;
+}
+
+/* Animation utilities */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 767.98px) {
+  .hero-section {
+    padding: 2rem 0;
+  }
+  
+  .table-responsive {
+    border-radius: var(--border-radius);
+  }
+}

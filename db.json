@@ -1,0 +1,48 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "name": "wewa",
+      "address": "rawraw",
+      "email": "arawrarwarr",
+      "services": "eawe eawe",
+      "mobile": 966598599559
+    },
+    {
+      "id": 2,
+      "name": "selection",
+      "address": "GOBINDAPUR , KAILASHAHAR , UNAKOTI TRIPURA",
+      "email": "selection@abc.com",
+      "services": "chai",
+      "mobile": 78941252511
+    },
+    {
+      "id": 3,
+      "name": "eadawd",
+      "address": "dawdaw",
+      "email": "dwadawdwd",
+      "services": "dawdawdc asd",
+      "mobile": 342432424324234
+    }
+  ],
+  "signup": [
+    {
+      "name": "arayan hotel 1",
+      "email": "sibashish@abc.com",
+      "mobile": 8769145511,
+      "password": "password@123",
+      "id": 1
+    },
+    {
+      "name": "Selection",
+      "email": "selection@abc.com",
+      "mobile": 3164631649,
+      "password": "passowrd@123",
+      "id": 2
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}

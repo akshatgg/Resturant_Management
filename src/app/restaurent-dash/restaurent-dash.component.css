@@ -1,0 +1,133 @@
+/* Global text styling */
+body {
+    color: #212529;
+}
+
+.text-muted {
+    color: #495057 !important;
+}
+
+/* Navbar styling */
+.navbar {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Table header styling */
+.sortable-header {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    transition: background-color 0.2s;
+}
+
+.sortable-header:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.sortable-header i {
+    font-size: 0.8rem;
+    margin-left: 5px;
+}
+
+/* Hero section styling */
+.hero-section {
+    background: linear-gradient(135deg, #1a237e, #0d47a1);
+    color: white;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(0,0,0,0.1)"/></svg>');
+    background-size: cover;
+    z-index: -1;
+}
+
+/* Table cell styling for darker text */
+.table td {
+    color: #212529;
+    font-weight: 400;
+}
+
+.table th {
+    color: #000;
+    font-weight: 600;
+}
+
+/* Table cards styling */
+.table th {
+    font-weight: 600;
+    color: #495057;
+}
+
+.table tr:hover {
+    background-color: rgba(0, 123, 255, 0.03);
+}
+
+/* Badge styles */
+.badge {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+    margin: 0.1em;
+}
+
+/* Animation for new items */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.table tr {
+    animation: fadeIn 0.5s;
+}
+
+/* Card hover effects */
+.card {
+    transition: all 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Button styling */
+.btn {
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+}
+
+/* Form controls in modal */
+.form-control:focus {
+    border-color: #3f51b5;
+    box-shadow: 0 0 0 0.2rem rgba(63, 81, 181, 0.25);
+}
+
+/* Modal header styling */
+.modal-header {
+    background: linear-gradient(135deg, #2979ff, #1565c0);
+}
+
+/* Empty state styling */
+.text-muted i {
+    opacity: 0.6;
+}
+
